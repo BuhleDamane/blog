@@ -350,7 +350,28 @@ text-align: justify;
   textarea {
     background-color: #f9f9f9;
   }
-  
+ 
+.delete-paragraph-btn {
+    background-color: #005f73; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 5px 15px; 
+    cursor: pointer;
+    transition: background-color 0.3s; 
+    height: 27px;
+    width: 120px;
+    font-size: 11px;
+}
+
+.delete-paragraph-btn:hover {
+    background-color: #005f73; 
+}
+
+.delete-paragraph-btn:focus {
+    outline: none; 
+}
+
   .add-paragraph-btn {
     margin-top: 10px;
     color: #fff;

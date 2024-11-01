@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <button class="user-portal-btn">Go to User Portal</button>
+    <button class="logout-btn" onclick="confirmLogout()">Logout</button>
+  </nav>
+
+  <section class="admin-portal">
+    <div class="top-section">
+      <p class="motivation-message">Buhle, you are doing great! Keep going, and remember, your work makes a difference. 🌟💪✨</p>
+    </div>
+
+    <form id="article-form">
+      <h2>New Article</h2>
+      <label for="topic">Topic</label>
+      <select id="topic" required>
+        <option value="" disabled selected>Select a Topic</option>
+        <option value="technology">Technology</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="law">Law</option>
+        <option value="politics">Politics</option>
+      </select>
+
+      <label for="blog-image">Blog Image</label>
+      <input type="file" id="blog-image" accept="image/*" required>
+
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="Enter title" required>
+
+      <label for="date">Date</label>
+      <input type="date" id="date" placeholder="dd/mm/yyyy" required>
+
+      <label for="description">Description</label>
+      <input type="text" id="description" placeholder="Short description" required>
+
+      <label for="content">Content</label>
+      <textarea id="content" placeholder="Enter article content" rows="4" required></textarea>
+      <button type="button" class="add-paragraph-btn">+ Add Paragraph</button>
+      
+      <div class="form-actions">
+        <button type="button" id="cancel-btn" disabled>Cancel</button>
+        <button type="submit" id="submit-btn">Submit</button>
+      </div>
+    </form>
+
+    <div class="sidebar">
+      <h3>See Previous Articles</h3>
+      <select id="filter-topic">
+        <option value="" disabled selected>Filter by Topic</option>
+        <option value="technology">Technology</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="law">Law</option>
+        <option value="politics">Politics</option>
+      </select>
+      <input type="date" id="filter-date">
+    </div>
+
+    <section class="recent-articles">
+      <h2>Recent Articles</h2>
+      
+    </section>
+  </section>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const cancelButton = document.getElementById("cancel-btn");
+        const submitButton = document.getElementById("submit-btn");
+        const articleForm = document.getElementById("article-form");
+        const addParagraphBtn = document.querySelector(".add-paragraph-btn");
+        const dateInput = document.getElementById("date");
+      
+      
+        articleForm.addEventListener("input", () => {
+          cancelButton.disabled = [...articleForm.elements].every(
+            (input) => input.value === ""
+          );
+        });
+ 
+        cancelButton.addEventListener("click", () => {
+          setTimeout(() => {
+            if (confirm("Are you sure you want to cancel?")) {
+              articleForm.reset();
+            }
+          }, 5000);
+        });
+
+        submitButton.addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("Article submitted successfully! 🌟");
+          articleForm.reset();
+          cancelButton.disabled = true;
+        });
+      
+        addParagraphBtn.addEventListener("click", addParagraph);
+      
+        function addParagraph() {
+          const newParagraphContainer = document.createElement("div");
+          newParagraphContainer.className = "paragraph-container";
+          
+          const newParagraph = document.createElement("textarea");
+          newParagraph.placeholder = "Enter additional paragraph";
+          newParagraph.rows = 4;
+          newParagraph.className = "paragraph";
+          
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete Paragraph";
+          deleteButton.className = "delete-paragraph-btn";
+          deleteButton.addEventListener("click", () => {
+            newParagraphContainer.remove();
+          });
+      
+          newParagraphContainer.appendChild(newParagraph);
+          newParagraphContainer.appendChild(deleteButton);
+          articleForm.insertBefore(newParagraphContainer, addParagraphBtn);
+        }
+      
+        dateInput.addEventListener("change", () => {
+          const [day, month, year] = dateInput.value.split("-");
+          dateInput.value = `${day}/${month}/${year}`;
+        });
+      });
+      
+     
+      function confirmLogout() {
+        if (confirm("Are you sure you want to logout?")) {
+          alert("Logged out successfully!");
+          
+        }
+      }
+      
+</script>
+  <script src="script.js"></script>
+</body>
+</html>

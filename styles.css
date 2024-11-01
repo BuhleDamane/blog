@@ -259,3 +259,142 @@ text-align: justify;
 #articles {
     margin-bottom: 100px;
 }
+/* Admin Portal Starts */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #005f73;
+    padding: 15px 20px;
+    height: 80px;
+  }
+  
+  .user-portal-btn,
+  .logout-btn {
+    background-color: #d63384;
+    color: #fff;
+    border: none;
+    padding: 5px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .user-portal-btn{
+    height: 50px;
+  }
+  .logout-btn{
+    height: 50px;
+  }
+  
+  .admin-portal {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .top-section {
+    text-align: center;
+    width: 600px;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  
+  .motivation-message {
+    font-size: 1.2em;
+    color: #fff;
+    background-color:  #d63384;
+    padding: 20px;
+    border-radius: 5px;
+    height: 100px;
+    
+  }
+  
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  form h2{
+    color: #005f73
+  }
+  
+  label {
+    display: block;
+    margin-top: 10px;
+    color: #006073b5;
+  }
+ 
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #005f73;
+    border-radius: 4px;
+  }
+  
+  input,
+  textarea {
+    background-color: #f9f9f9;
+  }
+  
+  .add-paragraph-btn {
+    margin-top: 10px;
+    color: #fff;
+    background-color: #d63384;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  #cancel-btn,
+  #submit-btn {
+    background-color: #005f73;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
+    border: none;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  #cancel-btn[disabled] {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .sidebar {
+    margin-top: 20px;
+  }
+  
+  .recent-articles {
+    margin-top: 30px;
+  }
+  
+  .recent-articles h2 {
+    color: #d63384;
+  }
+  

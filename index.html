@@ -12,16 +12,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <!-- Logo and Sign-In/Sign-Up Section -->
+   
    <header class="header">
       <div class="logo"><img src="images/WhatsApp blog.jpg" class="logo" alt=""></div>
       <div class="auth-buttons">
-        <a href="signin.html"><i class="fa-solid fa-user"></i></a> 
-        <p><a href="#">Sign-In</a> / <a href="#">Sign-Up</a></p>
+        <a href="login.html" target="_blank"><i class="fa-solid fa-user"></i></a> 
+        <p><a href="login.html" target="_blank">Sign-In</a> / <a href="signup.html" target="_blank">Sign-Up</a></p>
       </div>
    </header>
 
-   <!-- Introduction Section -->
+ 
    <section class="intro" style="text-align: center;">
     <img src="images/professional.jpg" alt="Buhle Damane" class="intro-image" />
     
@@ -38,16 +38,17 @@
     In all honesty, I hope you enjoy this blog as much as I do. I put my whole heart and soul into making it a reality. Ciao!
     </p>
             
-   <a class="contact-link" href="contact.html">Contact Me</a>
+   <a class="contact-link" href="contactus.html" target="_blank">Contact Me</a>
 </section>
 
-   <!-- Subscribe Section -->
+ 
    <section class="subscribe">
-      <input type="email" placeholder="Subscribe for updates">
-      <button>→</button>
-   </section>
+      <input type="email" id="subscribeEmail" placeholder="Subscribe for updates" required>
+      <button type="button" onclick="submitSubscription()">→</button>
+  </section>
+  
 
-   <!-- Categories Section -->
+   
    <section class="categories">
       <button onclick="filterArticles('all')">All</button>
       <button onclick="filterArticles('politics')">Politics</button>
@@ -56,29 +57,49 @@
       <button onclick="filterArticles('lifestyle')">Lifestyle</button>
    </section>
 
-   <!-- Articles Section -->
+   
    <section id="articles" class="articles">
       <h2>Recent Articles</h2>
       <div class="recent-articles">
-         <!-- Content will be injected here via script.js -->
+       
       </div>
    </section>
 
-   <!-- Footer Section -->
+  
    <footer class="footer">
     <div class="footer-content">
         <p>© 2024 Buhle Damane. All rights reserved.</p>
         <div class="social-icons">
-            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
     </div>
 </footer>
+<script>
+   
+   function submitSubscription() {
+      const emailInput = document.getElementById('subscribeEmail');
 
+      
+      if (emailInput.value.trim() === '') {
+          alert('Please enter your email address.'); 
+          emailInput.focus(); 
+      } else {
+        
+          alert("Thanks for subscribing! 🎉📬");
+
+         
+          setTimeout(() => {
+              emailInput.value = ''; 
+          }, 5000);
+      }
+  }
+
+</script>
 
    <script src="script.js"></script>
-   <script src="images/Assets.js"></script> <!-- Link to assets.js for article content -->
+   <script src="images/Assets.js"></script> 
 </body>
 </html>

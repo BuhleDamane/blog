@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .send-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .send-button.disabled {
+            background-color: lightgray;
+            cursor: not-allowed;
+        }
+        
+        .send-button.enabled {
+            color: white;
+            cursor: pointer;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+     
+        .contact-container {
+            background-color: white;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #005f73;
+            text-align: center;
+        }
+
+        .contact-container label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .contact-container label .required {
+            color: red;
+            margin-left: 5px;
+        }
+
+        .contact-container input[type="text"],
+        .contact-container input[type="email"],
+        .contact-container select,
+        .contact-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .contact-container textarea {
+            resize: vertical;
+        }
+
+       
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .contact-container button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+            color: white;
+        }
+
+        .cancel-button {
+            background-color: #f44336;
+        }
+
+        .send-button {
+            background-color: #005f73;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .send-button.enabled {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-container">
+    <h2>Contact Us</h2>
+    
+    <form id="contactForm">
+  
+        <label for="firstName">First Name <span class="required">*</span></label>
+        <input type="text" id="firstName" required>
+        
+        <label for="lastName">Last Name <span class="required">*</span></label>
+        <input type="text" id="lastName" required>
+
+        <label for="email">Email <span class="required">*</span></label>
+        <input type="email" id="email" required>
+
+        <label for="inquiryTopic">Inquiry Topic <span class="required">*</span></label>
+        <select id="inquiryTopic" required>
+            <option value="" disabled selected>Select a topic</option>
+            <option value="Technology">Technology</option>
+            <option value="Law">Law</option>
+            <option value="Politics">Politics</option>
+            <option value="Lifestyle">Lifestyle</option>
+            <option value="Other">Other</option>
+        </select>
+
+       
+        <label for="otherTopic" id="otherTopicLabel" style="display:none;">Specify Topic (50 characters max) <span class="required">*</span></label>
+        <input type="text" id="otherTopic" maxlength="50" style="display:none;">
+
+        <label for="message">Your Message (1000 characters max) <span class="required">*</span></label>
+        <textarea id="message" maxlength="1000" rows="6" required></textarea>
+
+        <div class="button-container">
+            <button type="button" class="cancel-button" onclick="confirmCancel()">Cancel</button>
+            <button type="submit" class="send-button" disabled>Send</button>
+        </div>
+
+        <p class="footer-note">* Indicates required fields.</p>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('contactForm');
+    const sendButton = document.querySelector('.send-button');
+    const inquiryTopic = document.getElementById('inquiryTopic');
+    const otherTopicLabel = document.getElementById('otherTopicLabel');
+    const otherTopic = document.getElementById('otherTopic');
+    
+    inquiryTopic.addEventListener('change', function() {
+        if (this.value === 'Other') {
+            otherTopicLabel.style.display = 'block';
+            otherTopic.style.display = 'block';
+            otherTopic.required = true;
+        } else {
+            otherTopicLabel.style.display = 'none';
+            otherTopic.style.display = 'none';
+            otherTopic.required = false;
+            otherTopic.value = '';  
+        }
+        checkFormCompletion();
+    });
+    
+    form.addEventListener('input', checkFormCompletion);
+    
+    function checkFormCompletion() {
+        
+        const allFilled = [...form.querySelectorAll('input[required]:not([style*="display: none"]), textarea[required], select[required]')]
+            .every(input => input.value.trim() !== '');
+        
+        if (allFilled) {
+            sendButton.disabled = false;
+            sendButton.classList.add('enabled');
+            sendButton.classList.remove('disabled');  
+        } else {
+            sendButton.disabled = true;
+            sendButton.classList.add('disabled');  
+            sendButton.classList.remove('enabled');
+        }
+    }
+    
+
+    function clearFormAfterDelay() {
+        setTimeout(() => {
+            form.reset();
+            checkFormCompletion();
+        }, 5000); 
+    }
+    
+   
+    function confirmCancel() {
+        if (confirm("Are you sure you want to cancel?")) {
+            form.reset();
+            checkFormCompletion();
+            clearFormAfterDelay();
+        }
+    }
+    
+    
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        alert("Form submitted successfully!");
+        clearFormAfterDelay();
+    });
+</script>    
+
+</body>
+</html>

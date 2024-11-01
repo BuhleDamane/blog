@@ -64,7 +64,6 @@
 
     <section class="recent-articles">
       <h2>Recent Articles</h2>
-      
     </section>
   </section>
 <script>
@@ -74,66 +73,128 @@
         const articleForm = document.getElementById("article-form");
         const addParagraphBtn = document.querySelector(".add-paragraph-btn");
         const dateInput = document.getElementById("date");
-      
-      
-        articleForm.addEventListener("input", () => {
-          cancelButton.disabled = [...articleForm.elements].every(
-            (input) => input.value === ""
-          );
+
+        // Load content from local storage
+        loadContent();
+
+        // Prevent loss of data on page refresh
+        window.addEventListener('beforeunload', (event) => {
+            event.preventDefault();
+            event.returnValue = 'Your unsaved changes will be lost. Are you sure you want to leave?';
         });
- 
+
+        articleForm.addEventListener("input", () => {
+            cancelButton.disabled = [...articleForm.elements].every(
+                (input) => input.value === ""
+            );
+        });
+
         cancelButton.addEventListener("click", () => {
-          setTimeout(() => {
             if (confirm("Are you sure you want to cancel?")) {
-              articleForm.reset();
+                articleForm.reset();
+                localStorage.removeItem('formData'); // Clear stored data on cancel
             }
-          }, 5000);
         });
 
         submitButton.addEventListener("click", (e) => {
-          e.preventDefault();
-          alert("Article submitted successfully! 🌟");
-          articleForm.reset();
-          cancelButton.disabled = true;
+            e.preventDefault();
+            alert("Article submitted successfully! 🌟");
+            articleForm.reset();
+            localStorage.removeItem('formData'); // Clear stored data on submit
+            cancelButton.disabled = true;
         });
-      
+
         addParagraphBtn.addEventListener("click", addParagraph);
-      
+
         function addParagraph() {
-          const newParagraphContainer = document.createElement("div");
-          newParagraphContainer.className = "paragraph-container";
-          
-          const newParagraph = document.createElement("textarea");
-          newParagraph.placeholder = "Enter additional paragraph";
-          newParagraph.rows = 4;
-          newParagraph.className = "paragraph";
-          
-          const deleteButton = document.createElement("button");
-          deleteButton.textContent = "Delete Paragraph";
-          deleteButton.className = "delete-paragraph-btn";
-          deleteButton.addEventListener("click", () => {
-            newParagraphContainer.remove();
-          });
-      
-          newParagraphContainer.appendChild(newParagraph);
-          newParagraphContainer.appendChild(deleteButton);
-          articleForm.insertBefore(newParagraphContainer, addParagraphBtn);
+            const newParagraphContainer = document.createElement("div");
+            newParagraphContainer.className = "paragraph-container";
+
+            const newParagraph = document.createElement("textarea");
+            newParagraph.placeholder = "Enter additional paragraph";
+            newParagraph.rows = 4;
+            newParagraph.className = "paragraph";
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete Paragraph";
+            deleteButton.className = "delete-paragraph-btn";
+            deleteButton.addEventListener("click", () => {
+                newParagraphContainer.remove();
+            });
+
+            newParagraphContainer.appendChild(newParagraph);
+            newParagraphContainer.appendChild(deleteButton);
+            articleForm.insertBefore(newParagraphContainer, addParagraphBtn);
         }
-      
+
         dateInput.addEventListener("change", () => {
-          const [day, month, year] = dateInput.value.split("-");
-          dateInput.value = `${day}/${month}/${year}`;
+            const [day, month, year] = dateInput.value.split("-");
+            dateInput.value = `${day}/${month}/${year}`;
         });
-      });
-      
-     
-      function confirmLogout() {
-        if (confirm("Are you sure you want to logout?")) {
-          alert("Logged out successfully!");
-          
+
+        // Load saved content from local storage
+        function loadContent() {
+            const savedData = JSON.parse(localStorage.getItem('formData'));
+            if (savedData) {
+                for (const [key, value] of Object.entries(savedData)) {
+                    const input = articleForm.querySelector(`#${key}`);
+                    if (input) {
+                        input.value = value;
+                    }
+                }
+            }
+
+            const savedParagraphs = JSON.parse(localStorage.getItem('paragraphs'));
+            if (savedParagraphs) {
+                savedParagraphs.forEach(paragraph => {
+                    const newParagraphContainer = document.createElement("div");
+                    newParagraphContainer.className = "paragraph-container";
+
+                    const newParagraph = document.createElement("textarea");
+                    newParagraph.placeholder = "Enter additional paragraph";
+                    newParagraph.rows = 4;
+                    newParagraph.className = "paragraph";
+                    newParagraph.value = paragraph;
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Delete Paragraph";
+                    deleteButton.className = "delete-paragraph-btn";
+                    deleteButton.addEventListener("click", () => {
+                        newParagraphContainer.remove();
+                        saveParagraphs();
+                    });
+
+                    newParagraphContainer.appendChild(newParagraph);
+                    newParagraphContainer.appendChild(deleteButton);
+                    articleForm.insertBefore(newParagraphContainer, addParagraphBtn);
+                });
+            }
         }
-      }
-      
+
+        // Save content to local storage
+        articleForm.addEventListener("input", () => {
+            const formData = {};
+            [...articleForm.elements].forEach(input => {
+                if (input.id) {
+                    formData[input.id] = input.value;
+                }
+            });
+            localStorage.setItem('formData', JSON.stringify(formData));
+        });
+
+        // Save paragraphs to local storage
+        function saveParagraphs() {
+            const paragraphs = [...articleForm.querySelectorAll('.paragraph')]
+                .map(paragraph => paragraph.value);
+            localStorage.setItem('paragraphs', JSON.stringify(paragraphs));
+        }
+    });
+
+    function confirmLogout() {
+        if (confirm("Are you sure you want to logout?")) {
+            alert("Logged out successfully!");
+        }
+    }
 </script>
   <script src="script.js"></script>
 </body>

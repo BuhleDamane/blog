@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Detail</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Article Detail View -->
+  <div class="article-detail">
+    <div class="author-section">
+      <img src="author-image.jpg" alt="Author Name" class="author-image">
+      <p>Author Name</p>
+    </div>
+    <img src="article-image.jpg" alt="Article Title" class="main-image">
+    <p class="date">Date</p>
+    <h2 class="title">Article Title</h2>
+    <p class="description">Short Description</p>
+    <div class="content">
+      Full article content goes here. 
+    </div>
+    <p class="sources">Sources: Example Source</p>
+    <div class="likes">
+      <button>👍🏿 100</button>
+      <button>👎🏿 20</button>
+    </div>
+    <div class="navigation">
+      <button onclick="navigateToPrevious()">Previous</button>
+      <button onclick="navigateToNext()">Next</button>
+    </div>
+    <button onclick="goBackToPortal()">Back to Portal</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

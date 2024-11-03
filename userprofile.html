@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    .profile-page {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+      
+      h1, h2 {
+        margin-bottom: 20px;
+      }
+      h1{
+        color: #005f73;
+        font-size: 35px;
+        text-align: center;
+      }
+      h2{
+        color: #d63384;
+        margin-top: 20px;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      label {
+        font-weight: bold;
+        color: #005f73;
+      }
+      
+      input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
+        padding: 8px;
+        font-size: 14px;
+        color: #006073ac
+      }
+      
+      button {
+        padding: 10px;
+        background-color: #005f73;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+      
+      button:hover {
+        background-color: #0056b3;
+      }
+      
+</style>
+<body>
+  <section class="profile-page">
+    <h1>User Profile</h1>
+    
+   
+    <div class="profile-section">
+      <h2>Profile Information</h2>
+      <form id="profile-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="CurrentUsername" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="user@example.com" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number">
+
+        <button type="button" onclick="saveProfile()">Save Changes</button>
+      </form>
+    </div>
+
+   
+    <div class="password-section">
+      <h2>Change Password</h2>
+      <form id="password-form">
+        <label for="current-password">Current Password</label>
+        <input type="password" id="current-password" required>
+
+        <label for="new-password">New Password</label>
+        <input type="password" id="new-password" required>
+
+        <label for="confirm-password">Confirm New Password</label>
+        <input type="password" id="confirm-password" required>
+
+        <button type="button" onclick="changePassword()">Update Password</button>
+      </form>
+    </div>
+
+    
+    <div class="settings-section">
+      <h2>Account Settings</h2>
+      <label for="notifications">Email Notifications</label>
+      <input type="checkbox" id="notifications" checked>
+
+      <button type="button" onclick="saveSettings()">Save Settings</button>
+    </div>
+  </section>
+
+  <script>
+ 
+    function saveProfile() {
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+
+      if (!email) {
+        alert("Please enter your email.");
+        return;
+      }
+
+      
+      alert("Profile information saved!");
+    }
+
+    function changePassword() {
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        alert("Please fill in all password fields.");
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        alert("New password and confirm password do not match.");
+        return;
+      }
+
+      
+      alert("Password updated successfully!");
+    }
+
+
+    function saveSettings() {
+      const notifications = document.getElementById('notifications').checked;
+      
+      
+      alert("Account settings saved!");
+    }
+  </script>
+</body>
+</html>

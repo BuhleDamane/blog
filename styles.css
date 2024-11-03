@@ -259,7 +259,7 @@ text-align: justify;
 #articles {
     margin-bottom: 100px;
 }
-/* Admin Portal Starts */
+
 * {
     box-sizing: border-box;
   }
@@ -418,15 +418,14 @@ text-align: justify;
   .recent-articles h2 {
     color: #d63384;
   }
-  /*       User Portal & Articles */
-  /* Basic Reset */
+ 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Modal Styles */
+
 .modal {
     display: none;
     position: fixed;
@@ -457,7 +456,7 @@ text-align: justify;
     cursor: pointer;
 }
 
-/* Portal Layout */
+
 .portal {
     display: flex;
     flex-direction: column;

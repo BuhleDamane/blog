@@ -98,10 +98,36 @@
 
         submitButton.addEventListener("click", (e) => {
             e.preventDefault();
-            alert("Article submitted successfully! 🌟");
-            articleForm.reset();
-            localStorage.removeItem('formData'); // Clear stored data on submit
-            cancelButton.disabled = true;
+            
+            // Get all required fields
+            const requiredFields = [
+                document.getElementById("topic"),
+                document.getElementById("blog-image"),
+                document.getElementById("title"),
+                document.getElementById("date"),
+                document.getElementById("description"),
+                document.getElementById("content")
+            ];
+
+            // Check if all fields are filled
+            let allFilled = true;
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    allFilled = false;
+                    field.style.border = "2px solid red"; // Highlight the empty field
+                    alert(`Please fill out the ${field.previousElementSibling.textContent} field.`);
+                } else {
+                    field.style.border = ""; // Reset border if filled
+                }
+            });
+
+            // If all fields are filled, submit the form
+            if (allFilled) {
+                alert("Article submitted successfully! 🌟");
+                articleForm.reset();
+                localStorage.removeItem('formData'); // Clear stored data on submit
+                cancelButton.disabled = true;
+            }
         });
 
         addParagraphBtn.addEventListener("click", addParagraph);

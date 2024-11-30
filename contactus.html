@@ -28,8 +28,6 @@
         
         body {
             font-family: 'Roboto', sans-serif;
-            display: flex;
-            justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
@@ -38,6 +36,7 @@
 
      
         .contact-container {
+            margin: 0 auto;
             background-color: white;
             padding: 20px;
             width: 100%;
@@ -171,7 +170,17 @@
         <p class="footer-note"> <span class="star">*</span> Indicates required fields.</p>
     </form>
 </div>
-
+<footer class="footer">
+    <div class="footer-content">
+        <p>© 2024 Buhle Damane. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
 <script>
     const form = document.getElementById('contactForm');
     const sendButton = document.querySelector('.send-button');

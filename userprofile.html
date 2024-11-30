@@ -7,66 +7,46 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <style>
-    .profile-page {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-      }
-      
-      h1, h2 {
-        margin-bottom: 20px;
-      }
-      h1{
-        color: #005f73;
-        font-size: 35px;
-        text-align: center;
-      }
-      h2{
-        color: #d63384;
-        margin-top: 20px;
-      }
-      
-      form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      
-      label {
-        font-weight: bold;
-        color: #005f73;
-      }
-      
-      input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
-        padding: 8px;
-        font-size: 14px;
-        color: #006073ac
-      }
-      
-      button {
-        padding: 10px;
-        background-color: #005f73;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-      }
-      
-      button:hover {
-        background-color: #0056b3;
-      }
-      
+  .profile-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1, h2 {
+    margin-bottom: 20px;
+  }
+  h1{
+    color: #005f73;
+    font-size: 35px;
+    text-align: center;
+  }
+  h2{
+    color: #d63384;
+    margin-top: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #005f73;
+  }
 </style>
 <body>
   <section class="profile-page">
     <h1>User Profile</h1>
     
-   
     <div class="profile-section">
       <h2>Profile Information</h2>
       <form id="profile-form">
         <label for="username">Username</label>
-        <input type="text" id="username" placeholder="CurrentUsername" required>
+        <input type="text" id="username" placeholder="CurrentUsername" required disabled>
 
         <label for="email">Email</label>
         <input type="email" id="email" placeholder="user@example.com" required>
@@ -78,7 +58,6 @@
       </form>
     </div>
 
-   
     <div class="password-section">
       <h2>Change Password</h2>
       <form id="password-form">
@@ -95,7 +74,6 @@
       </form>
     </div>
 
-    
     <div class="settings-section">
       <h2>Account Settings</h2>
       <label for="notifications">Email Notifications</label>
@@ -104,9 +82,21 @@
       <button type="button" onclick="saveSettings()">Save Settings</button>
     </div>
   </section>
-
+  <footer class="footer">
+    <div class="footer-content">
+        <p>© 2024 Buhle Damane. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
   <script>
- 
+    const backendUrl = 'http://localhost:3000';
+
+    // Save profile information to the backend
     function saveProfile() {
       const email = document.getElementById('email').value;
       const phone = document.getElementById('phone').value;
@@ -116,10 +106,26 @@
         return;
       }
 
-      
-      alert("Profile information saved!");
+      // Sending profile data to the backend
+      fetch(`${backendUrl}/update-profile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, phone })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Profile information saved!");
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(error => alert("Error: " + error.message));
     }
 
+    // Change password
     function changePassword() {
       const currentPassword = document.getElementById('current-password').value;
       const newPassword = document.getElementById('new-password').value;
@@ -135,16 +141,46 @@
         return;
       }
 
-      
-      alert("Password updated successfully!");
+      // Sending password change request to the backend
+      fetch(`${backendUrl}/change-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Password updated successfully!");
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(error => alert("Error: " + error.message));
     }
 
-
+    // Save account settings
     function saveSettings() {
       const notifications = document.getElementById('notifications').checked;
-      
-      
-      alert("Account settings saved!");
+
+      // Sending account settings update request
+      fetch(`${backendUrl}/update-settings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ notifications })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Settings updated successfully!");
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(error => alert("Error: " + error.message));
     }
   </script>
 </body>
